@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Word Count and Frequencies</title>
+  </head>
+  <body>
+    <h1>Word Count and Frequencies</h1>
+    <form>
+      <label for="paragraph">Enter a paragraph:</label><br>
+      <textarea id="paragraph" name="paragraph" rows="10" cols="50"></textarea><br>
+      <button type="button" onclick="countWords()">Count Words</button>
+    </form>
+    <h2>Results</h2>
+    <div id="results"></div>
+    <script>
+      function countWords() {
+        // Get the input paragraph from the user
+        const inputParagraph = document.getElementById("paragraph").value;
+      
+        // Convert the paragraph to an array of words
+        const words = inputParagraph.split(/\W+/);
+      
+        // Initialize an object to store the word counts
+        const wordCounts = {};
+      
+        // Loop through each word in the array and update the wordCounts object
+        words.forEach(word => {
+          wordCounts[word.toLowerCase()] = (wordCounts[word.toLowerCase()] || 0) + 1;
+        });
+      
+        // Calculate the total number of words
+        const totalWords = words.length;
+      
+        // Initialize an object to store the word frequencies
+        const wordFrequencies = {};
+      
+        // Loop through each word in the wordCounts object and update the wordFrequencies object
+        for (let word in wordCounts) {
+          wordFrequencies[word] = ((wordCounts[word] / totalWords) * 100).toFixed(2) + "%";
+        }
+      
+        // Display the word count and frequencies to the user
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = `<p>Word Count: ${totalWords}</p><p>Word Frequencies: ${JSON.stringify(wordFrequencies)}</p>`;
+      }
+    </script>
+  </body>
+</html>
